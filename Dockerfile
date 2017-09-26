@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM radanalyticsio/openshift-spark
 
 USER root
 
