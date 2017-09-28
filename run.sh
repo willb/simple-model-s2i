@@ -1,1 +1,1 @@
-exec ./app.py
+exec python ./app.py
