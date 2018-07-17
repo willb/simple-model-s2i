@@ -4,10 +4,6 @@ USER root
 
 ADD . /opt/sms
 
-RUN mkdir -p /usr/libexec/s2i
-ADD .s2i/assemble /usr/libexec/s2i
-ADD .s2i/run /usr/libexec/s2i
-
 WORKDIR /opt/sms
 
 ENV PYTHON_VERSION=3.6 \
@@ -38,7 +34,8 @@ EXPOSE 8080
 
 LABEL io.k8s.description="Example model microservice." \
       io.k8s.display-name="simple-model-server" \
-      io.openshift.expose-services="8080:http"
+      io.openshift.expose-services="8080:http" \
+      io.openshift.s2i.scripts-url="image:///opt/sms/.s2i/bin"
 
 USER 185
 
