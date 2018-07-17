@@ -23,10 +23,7 @@ app.model = None
 
 @app.route('/')
 def index():
-    if app.model is None:
-        return "Install a model by POSTing to /model"
-    else:
-        return "Make a prediction by POSTing to /predict"
+  return "Make a prediction by POSTing to /predict"
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -35,9 +32,9 @@ def predict():
     try:
         return json.dumps(app.model(args))
     except ValueError as ve:
-        return str(ve), 400
+        return str(ve)
     except Exception as e:
-        return str(e), 400
+        return str(e)
 
 if __name__ == '__main__':
   try:
@@ -48,4 +45,5 @@ if __name__ == '__main__':
     print(str(e))
     sys.exit()
   app.logger.setLevel(0)
+  app.debug = True
   app.run(host='0.0.0.0', port=8080)
