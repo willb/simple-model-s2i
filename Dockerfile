@@ -4,6 +4,10 @@ USER root
 
 ADD . /opt/sms
 
+RUN mkdir -p /usr/libexec/s2i
+ADD .s2i/assemble /usr/libexec/s2i
+ADD .s2i/run /usr/libexec/s2i
+
 WORKDIR /opt/sms
 
 ENV PYTHON_VERSION=3.6 \
