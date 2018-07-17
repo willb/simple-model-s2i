@@ -25,8 +25,8 @@ RUN INSTALL_PKGS="python3 python3-devel python3-setuptools python3-pip python3-v
             libffi-devel libtool-ltdl enchant" && \
         dnf -y --setopt=tsflags=nodocs install $INSTALL_PKGS && \
         dnf -y clean all --enablerepo='*'&& \
-        pip install "cloudpickle == 0.1.1" && \
-        pip install -r /opt/sms/requirements.txt
+        pip3 install "cloudpickle == 0.1.1" && \
+        pip3 install -r /opt/sms/requirements.txt
 
 RUN chmod 755 /opt/sms/app.py
 
