@@ -2,6 +2,7 @@ from flask import Flask, redirect, request, url_for
 import base64
 from cPickle import loads as cPloads
 import numpy
+import cloudpickle
 
 app = Flask(__name__)
 

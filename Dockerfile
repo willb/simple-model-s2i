@@ -7,6 +7,7 @@ ADD . /opt/sms
 WORKDIR /opt/sms
 
 RUN yum install -y python-pip \
+ && pip install "cloudpickle == 0.1.1" \
  && pip install -r requirements.txt
 
 RUN chmod 755 /opt/sms/app.py
