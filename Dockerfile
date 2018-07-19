@@ -20,9 +20,7 @@ ENV NAME=python3 \
     ARCH=x86_64
 
 
-RUN INSTALL_PKGS="python3 python3-devel python3-setuptools python3-pip python3-virtualenv \
-            nss_wrapper httpd httpd-devel atlas-devel gcc-gfortran \
-            libffi-devel libtool-ltdl enchant" && \
+RUN INSTALL_PKGS="python3 python3-devel python3-setuptools python3-pip python3-virtualenv" && \
         dnf -y --setopt=tsflags=nodocs install $INSTALL_PKGS && \
         dnf -y clean all --enablerepo='*'&& \
         pip3 install "cloudpickle == 0.5.3" && \
