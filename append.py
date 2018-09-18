@@ -1,8 +1,14 @@
 #!/usr/bin/env python
 
 import nbformat
+import sys
 
-nb = nbformat.read("model.ipynb", nbformat.NO_CONVERT)
+if len(sys.argv) != 3:
+  print("usage: %s INFILE OUTFILE" % sys.argv[0])
+  print(sys.argv)
+  sys.exit(1)
+
+nb = nbformat.read(sys.argv[1], nbformat.NO_CONVERT)
 
 cell = nbformat.v4.new_code_cell(""" 
 import cloudpickle
@@ -16,4 +22,4 @@ with open("extra-requirements.txt", "w") as f:
 
 nb.cells.append(cell)
 
-nbformat.write(nb, "patched-model.ipynb")
+nbformat.write(nb, sys.argv[2])
