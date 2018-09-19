@@ -17,7 +17,8 @@ with open("model.pickle", "wb") as f:
     f.write(cloudpickle.dumps((validator, globals()["predictor"])))
 
 with open("extra-requirements.txt", "w") as f:
-    f.write("\n".join(["%s==%s" % (k,v) for k,v in globals()["requirements"]]))
+    reqs = "requirements" in globals() and globals()["requirements"] or []
+    f.write("\n".join(["%s==%s" % (k,v) for k,v in reqs]))
 """)
 
 nb.cells.append(cell)
