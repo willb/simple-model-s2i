@@ -1,4 +1,7 @@
 #!/bin/bash
 
-export S2I_MODEL_PATH=${S2I_MODEL_PATH:-/opt/sms/model.pickle}
+export S2I_SOURCE_NOTEBOOK={$S2I_SOURCE_NOTEBOOK:-model.ipynb}
+export S2I_MODEL_FILE={$S2I_MODEL_FILE:-model.pickle}
+export S2I_MODEL_PATH={$S2I_MODEL_PATH:-/opt/sms/${S2I_MODEL_FILE}}
+
 exec python3 /opt/sms/app.py

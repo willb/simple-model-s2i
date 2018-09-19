@@ -1,1 +1,15 @@
 cp -R /tmp/src/* /opt/sms/
+
+export S2I_SOURCE_NOTEBOOK={$S2I_SOURCE_NOTEBOOK:-model.ipynb}
+export S2I_SOURCE_NOTEBOOK_PATH={$S2I_SOURCE_NOTEBOOK_PATH:-/opt/sms/${S2I_SOURCE_NOTEBOOK}}
+export S2I_MODEL_FILE={$S2I_MODEL_FILE:-model.pickle}
+export S2I_MODEL_PATH={$S2I_MODEL_PATH:-/opt/sms/${S2I_MODEL_FILE}}
+
+cd /opt/sms
+
+./append.py ${S2I_SOURCE_NOTEBOOK} patched-${S2I_SOURCE_NOTEBOOK}
+jupyter nbconvert --to notebook patched-${S2I_SOURCE_NOTEBOOK} 
+
+if (( $(wc -l < extra-requirements.txt) > 0 )); then
+   pip install -r extra-requirements.txt
+fi
