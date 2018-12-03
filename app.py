@@ -29,7 +29,7 @@ def index():
 def predict():
     import json
     if 'json_args' in request.form:
-      args = base64.b64decode(request.form['json_args'])
+      args = json.loads(request.form['json_args'])
     else:
       args = cPloads(base64.b64decode(request.form['args']))
     try:
