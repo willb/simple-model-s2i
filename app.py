@@ -28,7 +28,10 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     import json
-    args = cPloads(base64.b64decode(request.form['args']))
+    if 'json_args' in request.form:
+      args = base64.b64decode(request.form['json_args'])
+    else:
+      args = cPloads(base64.b64decode(request.form['args']))
     try:
         return json.dumps(app.model(args))
     except ValueError as ve:
