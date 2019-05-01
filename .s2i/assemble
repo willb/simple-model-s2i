@@ -22,7 +22,7 @@ if (( $(wc -l < /opt/sms/requirements.txt) > 0 )); then
    app/bin/pip install -r /opt/sms/requirements.txt
 fi
 
-app/bin/pip install ipython
+app/bin/pip install ipython prometheus_client uwsgi
 
 source app/bin/activate 
 

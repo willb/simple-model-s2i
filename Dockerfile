@@ -35,7 +35,7 @@ RUN chown 185 /opt/sms
 
 EXPOSE 8080
 
-LABEL io.k8s.description="Example model microservice." \
+LABEL io.k8s.description="Example pipeline microservice." \
       io.k8s.display-name="simple-model-server" \
       io.openshift.expose-services="8080:http" \
       io.openshift.s2i.scripts-url="image:///opt/sms/.s2i/"
