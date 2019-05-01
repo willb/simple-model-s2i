@@ -6,18 +6,9 @@ import numpy
 import cloudpickle
 import sys
 import os
+import pandas as pd
 
 app = Flask(__name__)
-
-class Model(object):
-    def __init__(self, validator, predictor):
-        self.validator = validator
-        self.predictor = predictor
-    def __call__(self, args):
-        if self.validator(args):
-            return self.predictor(args)
-        else:
-            raise ValueError("I don't know how to score the args (%r) you supplied" % args)
 
 app.model = None
 
@@ -33,7 +24,8 @@ def predict():
     else:
       args = cPloads(base64.b64decode(request.form['args']))
     try:
-        return json.dumps(app.model(args))
+        predictions = app.model.predict(pd.DataFrame([args]))
+        return json.dumps(predictions.tolist())
     except ValueError as ve:
         return str(ve)
     except Exception as e:
@@ -41,9 +33,10 @@ def predict():
 
 if __name__ == '__main__':
   try:
-    with open(os.getenv("S2I_MODEL_PATH"), "rb") as f:
-      (val, pred) = cPload(f)
-      app.model = Model(val, pred)
+      import json
+      from sklearn.pipeline import Pipeline
+      app.model = Pipeline([(k, cPload(open(v, "rb"))) for k, v in json.load(open("stages.json", "r"))])
+      
   except Exception as e:
     print(str(e))
     sys.exit()
