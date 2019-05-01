@@ -20,11 +20,13 @@ def index():
 def predict():
     import json
     if 'json_args' in request.form:
-      args = json.loads(request.form['json_args'])
+      args = pd.read_json(request.form['json_args'])
+      if len(args.columns) == 1:
+          args = args.squeeze()
     else:
       args = cPloads(base64.b64decode(request.form['args']))
     try:
-        predictions = app.model.predict(pd.DataFrame([args]))
+        predictions = app.model.predict(args)
         return json.dumps(predictions.tolist())
     except ValueError as ve:
         return str(ve)
