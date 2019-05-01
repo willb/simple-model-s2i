@@ -15,8 +15,8 @@ app = Flask(__name__)
 
 METRICS_PREFIX = os.getenv("S2I_APP_METRICS_PREFIX", "pipeline")
 
-PREDICTION_TIME = Summary('%s_predict_processing_seconds' % METRICS_PREFIX, 'Time spent processing predictions')
-PREDICTIONS = Counter('predictions_total', 'Total predictions for a given label', ['value'])
+PREDICTION_TIME = Summary('%s_processing_seconds' % METRICS_PREFIX, 'Time spent processing predictions')
+PREDICTIONS = Counter('%s_predictions_total' % METRICS_PREFIX, 'Total predictions for a given label', ['value'])
 app.model = None
 
 @app.route('/')
@@ -32,6 +32,8 @@ def predict():
       if len(args.columns) == 1 and len(args.values) > 1:
           # convert to series
           args = args.squeeze()
+      else:
+          args = [args.squeeze()]
     else:
       args = cPloads(base64.b64decode(request.form['args']))
     try:
