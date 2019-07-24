@@ -15,22 +15,26 @@ python3 $(which jupyter) nbconvert --to script reqs-${S2I_SOURCE_NOTEBOOK}
 
 python3 ./$(basename reqs-${S2I_SOURCE_NOTEBOOK} .ipynb).py
 
-echo EXTRA REQUIREMENTS ARE:
+echo \n\nEXTRA REQUIREMENTS ARE:
 cat extra-requirements.txt
 
+echo
+
 virtualenv-3 app 
+source app/bin/activate 
+
 app/bin/pip install "cloudpickle == 0.5.3" "flask"
 
 if (( $(wc -l < extra-requirements.txt) > 0 )); then
-   app/bin/pip install -r extra-requirements.txt
+    echo "\n\nINSTALLING EXTRA REQUIREMENTS"
+    app/bin/pip install -r extra-requirements.txt
 fi
-    
-source app/bin/activate 
 
 if [[ x$S2I_SPACY_MODEL != "x" ]] ; then
+    echo "\n\nINSTALLING SPACY MODEL $S2I_SPACY_MODEL"
     app/bin/python -m spacy download $S2I_SPACY_MODEL
 fi
-  
-app/bin/python ./$(basename patched-${S2I_SOURCE_NOTEBOOK} .ipynb).py
 
+echo "\n\nGENERATING MODEL"
+app/bin/python ./$(basename patched-${S2I_SOURCE_NOTEBOOK} .ipynb).py
 
