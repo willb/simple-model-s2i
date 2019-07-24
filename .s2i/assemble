@@ -25,7 +25,7 @@ source app/bin/activate
 
 app/bin/pip install "cloudpickle == 0.5.3" "flask"
 
-if (( $(wc -l < extra-requirements.txt) > 0 )); then
+if (( $(wc -c < extra-requirements.txt) > 0 )); then
     echo "\n\nINSTALLING EXTRA REQUIREMENTS"
     app/bin/pip install -r extra-requirements.txt
 fi
