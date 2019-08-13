@@ -25,6 +25,7 @@ RUN INSTALL_PKGS="python3 python3-devel python3-setuptools python3-pip python3-v
         dnf -y clean all --enablerepo='*'&& \
         pip3 install "cloudpickle == 0.5.3" && \
         pip3 install nbconvert nbformat jupyter_client && \
+        pip3 install -r /opt/sms/base-requirements.txt && \
         pip3 install -r /opt/sms/requirements.txt && \
         pip3 install virtualenv && \
         rm /opt/sms/requirements.txt
