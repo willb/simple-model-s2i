@@ -1,4 +1,4 @@
-FROM registry.fedoraproject.org/f27/s2i-base:latest
+FROM registry.redhat.io/ubi8/python-36
 
 USER root
 
