@@ -1,6 +1,6 @@
 from flask import Flask, redirect, request, url_for
 from prometheus_client import make_wsgi_app, Summary, Counter
-from werkzeug.wsgi import DispatcherMiddleware
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
 import base64
 from pickle import load as cPload
