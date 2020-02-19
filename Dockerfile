@@ -1,4 +1,4 @@
-FROM registry.redhat.io/ubi8/python-36
+FROM centos/python-36-centos7
 
 USER root
 
@@ -21,8 +21,8 @@ ENV NAME=python3 \
 
 
 RUN INSTALL_PKGS="python3 python3-devel python3-setuptools python3-pip python3-virtualenv" && \
-        dnf -y --setopt=tsflags=nodocs install $INSTALL_PKGS && \
-        dnf -y clean all --enablerepo='*'&& \
+        yum -y --setopt=tsflags=nodocs install $INSTALL_PKGS && \
+        yum -y clean all --enablerepo='*'&& \
         pip3 install "cloudpickle == 0.5.3" && \
         pip3 install nbconvert nbformat jupyter_client && \
         pip3 install -r /opt/sms/base-requirements.txt && \
