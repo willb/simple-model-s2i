@@ -5,7 +5,7 @@ cd /opt/sms
 echo EXTRA REQUIREMENTS ARE:
 cat /opt/sms/requirements.txt
 
-virtualenv-3 app 
+virtualenv app 
 app/bin/pip install "cloudpickle == 0.5.3" "flask"
 
 process_each_first() {
